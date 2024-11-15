@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # Grant write permission to the contents of the repo (to push to gh-pages)
+
     steps:
       - name: Clear npm cache
         run: npm cache clean --force
@@ -24,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm install --registry=https://registry.npmjs.org
         env:
-          NODE_AUTH_TOKEN: ''  # Make sure token is not set here
+          NODE_AUTH_TOKEN: ''  # Ensure token is not set here
 
       - name: Build the project
         run: npm run build
@@ -33,4 +36,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: ./dist
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Use the default GitHub token
