@@ -1,28 +1,41 @@
-name: Deploy to GitHub Pages
+name: Deploy Vue to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Use your default branch, `main` or `master`
+      - main  # Trigger on pushes to the main branch
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Set npm registry to default
+      - name: Set npm registry to default
+        run: npm config set registry https://registry.npmjs.org/
+
+      # Remove any npm authentication (if it was set)
+      - name: Remove npm authentication (if any)
+        run: npm logout || true
+
+      # Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18  # Specify your Node.js version here
+          node-version: '18'
 
+      # Install dependencies
       - name: Install dependencies
         run: npm install
 
+      # Build the project
       - name: Build project
         run: npm run build
 
+      # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
