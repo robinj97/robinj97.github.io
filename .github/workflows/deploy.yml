@@ -22,7 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --registry=https://registry.npmjs.org
         env:
           NODE_AUTH_TOKEN: ''  # Make sure token is not set here
 
