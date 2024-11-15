@@ -20,7 +20,11 @@ import Button from "primevue/button";
 
 const items = ref([
   { label: 'Resume', icon: 'pi pi-user' },
+  { label: 'LinkedIn', icon: 'pi pi-linkedin', command: () => window.open('https://www.linkedin.com/in/robin-jain/', '_blank') },
+  { label: 'GitHub', icon: 'pi pi-github', command: () => window.open('https://github.com/robinj97','_blank') },
+  { label: 'Contact', icon: 'pi pi-envelope' },
   { label: 'Posts', icon: 'pi pi-book' }
+
 ]);
 </script>
 
