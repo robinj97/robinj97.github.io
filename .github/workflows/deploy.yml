@@ -18,20 +18,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Clear all npm configuration
-        run: npm config delete //registry.npmjs.org/:_authToken
-
-      - name: Delete .npmrc from repository (if exists)
-        run: rm -f .npmrc
-
-      - name: Delete .npmrc from home directory (if exists)
-        run: rm -f $HOME/.npmrc
-
-      - name: Set npm registry to default
-        run: npm config set registry https://registry.npmjs.org/
+      - name: Create .npmrc for GitHub Actions
+        run: |
+          echo "registry=https://registry.npmjs.org/" > .npmrc
+          echo "//registry.npmjs.org/:_authToken=" >> .npmrc  # Ensures no token is used
 
       - name: Install dependencies
-        run: npm install --no-optional
+        run: npm install
 
       - name: Build the project
         run: npm run build
@@ -41,3 +34,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+
+      - name: Clean up .npmrc
+        run: rm -f .npmrc
