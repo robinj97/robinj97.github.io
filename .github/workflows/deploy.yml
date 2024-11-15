@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Checkout the code
         uses: actions/checkout@v3
 
@@ -17,13 +20,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          registry-url: https://npm.pkg.github.com/
-
-      - name: Copy .npmrc to the runner
-        run: cp .npmrc $HOME/.npmrc
 
       - name: Install dependencies
         run: npm install
+        env:
+          NODE_AUTH_TOKEN: ''  # Make sure token is not set here
 
       - name: Build the project
         run: npm run build
@@ -31,6 +32,4 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          # If you're deploying to GitHub Pages, you don't need the GITHUB_TOKEN here
-          # github_token: ${{ secrets.GITHUB_TOKEN }}  # This line can be omitted
           publish_dir: ./dist
