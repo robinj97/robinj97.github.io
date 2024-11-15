@@ -18,11 +18,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Ensure default npm registry
-        run: npm config delete registry  # Remove any custom registry settings
+      - name: Delete .npmrc if it exists
+        run: rm -f .npmrc
 
-      - name: Install dependencies
-        run: npm install
+      - name: Set npm registry to default
+        run: npm config set registry https://registry.npmjs.org/
+
+      - name: Install dependencies without authentication
+        run: npm install --no-auth
 
       - name: Build the project
         run: npm run build
