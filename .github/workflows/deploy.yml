@@ -18,10 +18,8 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Create .npmrc for GitHub Actions
-        run: |
-          echo "registry=https://registry.npmjs.org/" > .npmrc
-          echo "//registry.npmjs.org/:_authToken=" >> .npmrc  # Ensures no token is used
+      - name: Copy .npmrc to the runner
+        run: cp .npmrc $HOME/.npmrc
 
       - name: Install dependencies
         run: npm install
@@ -32,8 +30,6 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # If you're deploying to GitHub Pages, you don't need the GITHUB_TOKEN here
+          # github_token: ${{ secrets.GITHUB_TOKEN }}  # This line can be omitted
           publish_dir: ./dist
-
-      - name: Clean up .npmrc
-        run: rm -f .npmrc
