@@ -1,8 +1,5 @@
 <template>
   <div style="width: 100%; height: 100vh;">
-    <div style="width: 2%;">
-      <Menu :model="items" />
-    </div>
     <h1 style="text-align: center; width: 100%;">Robin Jain</h1>
     <p style="text-align: center; border: 2px dotted gray; width: 50%; margin: 0 auto;">
       Hello and welcome to my page! I am an fullstack developer working towards gaining expertise in the domain of cyber security.
@@ -13,19 +10,12 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
 import Menu from 'primevue/menu';
 import Button from "primevue/button";
 
 
 
-const items = ref([
-  { label: 'Resume', icon: 'pi pi-user' },
-  { label: 'LinkedIn', icon: 'pi pi-linkedin', command: () => window.open('https://www.linkedin.com/in/robin-jain/', '_blank') },
-  { label: 'GitHub', icon: 'pi pi-github', command: () => window.open('https://github.com/robinj97','_blank') },
-  { label: 'Contact', icon: 'pi pi-envelope' },
-  { label: 'Posts', icon: 'pi pi-book' }
-
-]);
 </script>
 
 <style scoped>
